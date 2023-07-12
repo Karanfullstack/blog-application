@@ -8,6 +8,7 @@ import connectDB from "./config/connectDB";
 
 //env config
 dotenv.config();
+
 // MongoDB connection
 connectDB();
 
@@ -15,14 +16,14 @@ connectDB();
 const app = express();
 
 // middlewares
+app.use(express.json());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// routes
-app.get("/", (req, res) => {
-  res.send("<h1>Home Page</h1>");
-});
+// ROUTES
+import userRoutes from "./routes/userRoutes";
+app.use("/api/v1/user", userRoutes);
 
 // Port
 const PORT = process.env.PORT || 8080;
