@@ -1,4 +1,5 @@
 import userModel from "../models/userModel";
+import bcrypt from "bcrypt";
 
 const userController = {
   // @REGISTER CONTROLLER
@@ -20,9 +21,10 @@ const userController = {
           message: "User is already exists",
         });
       }
-
+      // hash password
+      const hashPassword = await bcrypt.hash(password, 10);
       // save user
-      const user = new userModel({username, email, password});
+      const user = new userModel({username, email, password: hashPassword});
       await user.save();
       return res.status(201).send({
         sucess: true,
