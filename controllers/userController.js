@@ -62,7 +62,46 @@ const userController = {
   },
 
   // @LOGIN USER CONTROLLER
-  loginUser() {},
+  async loginUser(req, res) {
+    try {
+      const {email, password} = req.body;
+      // validation
+      if (!email || !password) {
+        return res.status(401).send({
+          sucess: false,
+          message: "Please fill all fields ",
+        });
+      }
+      const user = await userModel.findOne({email});
+      // if user email exists
+      if (!user) {
+        return res.status(200).send({
+          sucess: false,
+          message: "User is not registerd",
+        });
+      }
+      // if password matches
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).send({
+          sucess: false,
+          message: "Password do not match",
+        });
+      }
+      return res.status(200).send({
+        sucess: true,
+        message: "Login Sucessfully",
+        user,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
+        sucess: false,
+        message: "Error in Login Controller",
+        error,
+      });
+    }
+  },
 };
 
 export default userController;
