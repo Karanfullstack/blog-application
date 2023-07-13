@@ -33,19 +33,21 @@ const blogController = {
 
   async create(req, res) {
     try {
-      const {title, description, image, userID} = req.body;
+      const {title, description, image, user} = req.body;
+
       // validation
-      if (!title || !description || !image || !userID) {
+      if (!title || !description || !image || !user) {
         return res.status(400).send({
           sucess: false,
           message: "Please Provide All Fields",
         });
       }
-      const existningUser = await userModel.findById(userID);
-      if (!existningUser) {
+
+      const existingUser = await userModel.findById(user);
+      if (!existingUser) {
         return res.status(404).send({
           sucess: false,
-          message: "Unable to find User",
+          message: "No User Found",
         });
       }
 
@@ -54,11 +56,11 @@ const blogController = {
       const session = await mongoose.startSession();
       session.startTransaction();
       await newBlog.save({session});
-      existningUser.blogs.push(newBlog);
-      await existningUser.save({session});
+      existingUser.blogs.push(newBlog);
+      await existingUser.save({session});
       await session.commitTransaction();
-
       await newBlog.save();
+
       return res.status(201).send({
         sucess: true,
         message: "Blog Created",

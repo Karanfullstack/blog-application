@@ -18,8 +18,7 @@ const blogSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: [true, "user ID is required"],
+      require: [true, "User Id is required"],
     },
   },
 
