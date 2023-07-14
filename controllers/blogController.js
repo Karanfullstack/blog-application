@@ -7,7 +7,7 @@ const blogController = {
   async getAll(req, res) {
     try {
       const blogs = await blogModel.find({}).select("-__v");
-      if (!blogs) {
+      if (!blogs || blogs.length === 0) {
         return res.status(200).send({
           sucess: false,
           message: "No Blogs Records",
@@ -51,7 +51,7 @@ const blogController = {
         });
       }
 
-      const newBlog = await blogModel.create({title, description, image});
+      const newBlog = await blogModel.create({title, description, image, user});
 
       const session = await mongoose.startSession();
       session.startTransaction();
@@ -138,14 +138,11 @@ const blogController = {
   // DELETE A BLOG POST
   async delete(req, res) {
     try {
-      const {id} = req.params;
-      const blog = await blogModel.findByIdAndDelete(id);
-      if (!blog) {
-        return res.status(404).send({
-          sucess: false,
-          message: "No Blog Found With Given ID",
-        });
-      }
+      const blog = await blogModel
+        .findByIdAndDelete(req.params.id)
+        .populate("user");
+      await blog.user.blogs.pull(blog);
+      await blog.user.save();
       return res.status(202).send({
         sucess: true,
         message: "A Blog Has been Deleted Sucessfully",
@@ -156,6 +153,31 @@ const blogController = {
       return res.status(400).send({
         sucess: false,
         message: "Error While Deleting a Blog",
+        error: error,
+      });
+    }
+  },
+
+  async getUserBlogs(req, res) {
+    try {
+      const blog = await userModel.findById(req.params.id).populate("blogs");
+      if (!blog) {
+        return res.status(404).send({
+          sucess: false,
+          message: "No Blogs Found for single user",
+        });
+      }
+      return res.status(200).send({
+        sucess: true,
+        message: "User Blogs Found",
+        length:blog.blogs.length,
+        blog,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({
+        sucess: false,
+        message: "Error in Get User Blogs",
         error,
       });
     }

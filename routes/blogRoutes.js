@@ -10,5 +10,6 @@ router.post("/create-blog", blogController.create);
 router.put("/update-blog/:id", blogController.update);
 router.get("/get-blog/:id", blogController.getSingle);
 router.delete("/delete-blog/:id", blogController.delete);
+router.get("/user-blog/:id", blogController.getUserBlogs);
 
 export default router;
