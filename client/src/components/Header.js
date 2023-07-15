@@ -15,11 +15,12 @@ const Header = () => {
   const [value, setValue] = useState();
   const isLogin = useSelector((state) => state.isLogin);
   console.log(isLogin);
+  const style = {background: "#000"};
   return (
     <React.Fragment>
-      <AppBar position="sticky">
+      <AppBar position="sticky" style={style}>
         <Toolbar>
-          <Typography variant="h4">My Blog App</Typography>
+          <Typography variant="h4">CRUX</Typography>
           {isLogin && (
             <Box display="flex" marginLeft="auto" marginRight="auto">
               <Tabs
