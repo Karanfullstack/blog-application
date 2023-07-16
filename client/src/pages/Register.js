@@ -11,18 +11,21 @@ const Register = () => {
   };
 
   // handel Submit
-  const handel = (event) => {
+  const handel = async (event) => {
     event.preventDefault();
-    // try {
-    //   const data = await axios.post("/api/v1/user/register", {
-    //     username: user.name,
-    //     email: user.email,
-    //     password: user.password,
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    console.log(user);
+    try {
+      const {data} = await axios.post("/api/v1/user/register", {
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      });
+      if (data.sucess) {
+        alert("User Registred Sucessfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
     setUser({email: "", username: "", password: ""});
   };
 

@@ -6,7 +6,7 @@ const blogController = {
   // GET ALL BLOG POSTS
   async getAll(req, res) {
     try {
-      const blogs = await blogModel.find({}).select("-__v");
+      const blogs = await blogModel.find({}).populate("user");
       if (!blogs || blogs.length === 0) {
         return res.status(200).send({
           sucess: false,
@@ -170,7 +170,7 @@ const blogController = {
       return res.status(200).send({
         sucess: true,
         message: "User Blogs Found",
-        length:blog.blogs.length,
+        length: blog.blogs.length,
         blog,
       });
     } catch (error) {
