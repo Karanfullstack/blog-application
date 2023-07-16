@@ -14,6 +14,7 @@ const Register = () => {
     event.preventDefault();
     console.log(user);
     setUser({email: "", name: "", password: ""});
+    console.log(user);
   };
 
   return (
@@ -63,7 +64,7 @@ const Register = () => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            style={{background:'orangered'}}
             sx={{borderRadius: 3, marginBottom: 2, marginTop: 2}}
           >
             Submit

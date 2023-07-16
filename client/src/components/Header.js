@@ -14,8 +14,8 @@ import {useSelector} from "react-redux";
 const Header = () => {
   const [value, setValue] = useState();
   const isLogin = useSelector((state) => state.isLogin);
-  console.log(isLogin);
-  const style = {background: "#000"};
+  const style = {background: "#000", borderTop: "4px solid orangered"};
+
   return (
     <React.Fragment>
       <AppBar position="sticky" style={style}>
