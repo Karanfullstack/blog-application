@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Box, Typography, TextField, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
@@ -12,9 +13,17 @@ const Register = () => {
   // handel Submit
   const handel = (event) => {
     event.preventDefault();
+    // try {
+    //   const data = await axios.post("/api/v1/user/register", {
+    //     username: user.name,
+    //     email: user.email,
+    //     password: user.password,
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
     console.log(user);
-    setUser({email: "", name: "", password: ""});
-    console.log(user);
+    setUser({email: "", username: "", password: ""});
   };
 
   return (
@@ -50,7 +59,7 @@ const Register = () => {
             name="username"
             type={"text"}
             onChange={userData}
-            value={user.name}
+            value={user.username}
           />
           <TextField
             fullWidth
@@ -64,7 +73,7 @@ const Register = () => {
           <Button
             type="submit"
             variant="contained"
-            style={{background:'orangered'}}
+            style={{background: "orangered"}}
             sx={{borderRadius: 3, marginBottom: 2, marginTop: 2}}
           >
             Submit
