@@ -8,3 +8,7 @@ body {
   font-family: "roboto", sans-serif;
   background-color: aliceblue;
 }
+
+.bodyBlog {
+  padding-bottom: 50px;
+}

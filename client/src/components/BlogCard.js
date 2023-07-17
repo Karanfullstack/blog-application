@@ -42,6 +42,7 @@ export default function BlogCard({title, description, image, username, time}) {
         padding: 2,
         boxShadow: "3px 3px 10px #ccc",
         borderRadius: "30px",
+        
       }}
     >
       <CardHeader
@@ -68,22 +69,6 @@ export default function BlogCard({title, description, image, username, time}) {
           {description}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
     </Card>
   );
 }

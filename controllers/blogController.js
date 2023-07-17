@@ -158,6 +158,7 @@ const blogController = {
     }
   },
 
+  // getting user blogs
   async getUserBlogs(req, res) {
     try {
       const blog = await userModel.findById(req.params.id).populate("blogs");
@@ -168,7 +169,7 @@ const blogController = {
         });
       }
       return res.status(200).send({
-        sucess: true,
+        success: true,
         message: "User Blogs Found",
         length: blog.blogs.length,
         blog,
@@ -176,7 +177,7 @@ const blogController = {
     } catch (error) {
       console.log(error);
       return res.status(400).send({
-        sucess: false,
+        success: false,
         message: "Error in Get User Blogs",
         error,
       });

@@ -22,17 +22,20 @@ const Blog = () => {
   console.log(blogs);
   return (
     <React.Fragment>
-      {blogs &&
-        blogs.map((item) => (
-          <BlogCard
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            image={item.image}
-            username={item.user.username}
-            time={item.createdAt}
-          />
-        ))}
+      <div className="bodyBlog" style={{marginBottom: 10}}>
+      <h2 style={{textAlign:'center', marginTop:30}}>Home</h2>
+        {blogs &&
+          blogs.map((item) => (
+            <BlogCard
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+              username={item.user.username}
+              time={item.createdAt}
+            />
+          ))}
+      </div>
     </React.Fragment>
   );
 };
