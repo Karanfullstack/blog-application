@@ -32,7 +32,7 @@ const MyBlogs = () => {
             title={item.title}
             description={item.description}
             image={item.image}
-            username={item.user.username}
+            username={item?.user?.username}
             time={item.createdAt}
           />
         ))}
