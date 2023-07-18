@@ -4,17 +4,18 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
-import IconButton, {IconButtonProps} from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import {red} from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {Box} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+
+import axios from "axios";
 const ExpandMore = styled((props) => {
   const {expand, ...other} = props;
   return <IconButton {...other} />;
@@ -26,11 +27,38 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function BlogCard({title, description, image, username, time}) {
+export default function BlogCard({
+  title,
+  description,
+  image,
+  username,
+  time,
+  id,
+  isUser,
+}) {
   const [expanded, setExpanded] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  // Handel Edit
+
+  const handelEdit = function () {
+    navigate(`/blog-details/${id}`);
+  };
+
+  const handelDelete = async function () {
+    try {
+      const {data} = await axios.delete(`api/v1/blog/delete-blog/${id}`);
+      if (data?.success) {
+        alert("Blog Deleted");
+        navigate("/my-blogs");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -39,12 +67,22 @@ export default function BlogCard({title, description, image, username, time}) {
         maxWidth: "45%",
         margin: "auto",
         marginTop: "50px",
-        marginBottom:'50px',
+        marginBottom: "50px",
         padding: 2,
         boxShadow: "3px 3px 10px #ccc",
         borderRadius: "30px",
       }}
     >
+      {isUser && (
+        <Box display={"flex"}>
+          <IconButton sx={{marginLeft: "auto"}} onClick={handelEdit}>
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={handelDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+      )}
       <CardHeader
         avatar={
           <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">

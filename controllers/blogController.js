@@ -116,19 +116,19 @@ const blogController = {
       const blog = await blogModel.findById(id);
       if (!blog) {
         return res.status(404).send({
-          sucess: false,
+          success: false,
           message: "Blog not found with this ID",
         });
       }
       return res.status(200).send({
-        sucess: true,
+        success: true,
         message: "Blog Fetched Sucessfully",
         blog,
       });
     } catch (error) {
       console.log(error);
       return res.status(400).send({
-        sucess: false,
+        success: false,
         message: "Error While Getting Single Blog",
         error,
       });
@@ -144,14 +144,14 @@ const blogController = {
       await blog.user.blogs.pull(blog);
       await blog.user.save();
       return res.status(202).send({
-        sucess: true,
+        success: true,
         message: "A Blog Has been Deleted Sucessfully",
         blog,
       });
     } catch (error) {
       console.log(error);
       return res.status(400).send({
-        sucess: false,
+        success: false,
         message: "Error While Deleting a Blog",
         error: error,
       });

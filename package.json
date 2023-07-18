@@ -12,6 +12,9 @@
   "author": "karan",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.0",
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
     "concurrently": "^8.2.0",

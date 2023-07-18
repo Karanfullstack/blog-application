@@ -23,12 +23,14 @@ const Blog = () => {
   return (
     <React.Fragment>
       <div className="bodyBlog" style={{marginBottom: 10}}>
-      <h2 style={{textAlign:'center', marginTop:30}}>Home</h2>
+        <h2 style={{textAlign: "center", marginTop: 30}}>Home</h2>
         {blogs &&
           blogs.map((item) => (
             <BlogCard
               key={item.id}
+              isUser={localStorage.getItem('userID') === item.user._id}
               title={item.title}
+              id={item._id}
               description={item.description}
               image={item.image}
               username={item.user.username}
