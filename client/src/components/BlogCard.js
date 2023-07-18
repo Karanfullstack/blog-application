@@ -39,10 +39,10 @@ export default function BlogCard({title, description, image, username, time}) {
         maxWidth: "45%",
         margin: "auto",
         marginTop: "50px",
+        marginBottom:'50px',
         padding: 2,
         boxShadow: "3px 3px 10px #ccc",
         borderRadius: "30px",
-        
       }}
     >
       <CardHeader

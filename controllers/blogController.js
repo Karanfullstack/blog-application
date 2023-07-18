@@ -38,7 +38,7 @@ const blogController = {
       // validation
       if (!title || !description || !image || !user) {
         return res.status(400).send({
-          sucess: false,
+          success: false,
           message: "Please Provide All Fields",
         });
       }
@@ -46,7 +46,7 @@ const blogController = {
       const existingUser = await userModel.findById(user);
       if (!existingUser) {
         return res.status(404).send({
-          sucess: false,
+          success: false,
           message: "No User Found",
         });
       }
@@ -62,7 +62,7 @@ const blogController = {
       await newBlog.save();
 
       return res.status(201).send({
-        sucess: true,
+        success: true,
         message: "Blog Created",
         newBlog,
       });

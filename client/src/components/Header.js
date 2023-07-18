@@ -37,7 +37,7 @@ const Header = () => {
     <React.Fragment>
       <AppBar position="sticky" style={style}>
         <Toolbar>
-          <Typography variant="h4">CRUX</Typography>
+          <Typography variant="h6">CRUX</Typography>
           {isLogin && (
             <Box display="flex" marginLeft="auto" marginRight="auto">
               <Tabs
@@ -47,6 +47,7 @@ const Header = () => {
               >
                 <Tab label="Blogs" LinkComponent={Link} to="/" />
                 <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
+                <Tab label="Create Blog" LinkComponent={Link} to="/create-blog" />
               </Tabs>
             </Box>
           )}
