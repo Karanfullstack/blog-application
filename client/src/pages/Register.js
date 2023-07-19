@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Box, Typography, TextField, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import toster, {toast} from "react-hot-toast";
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
@@ -20,7 +21,7 @@ const Register = () => {
         password: user.password,
       });
       if (data.sucess) {
-        alert("User Registred Sucessfully");
+        toster.success('"User Registred Sucessfully"');
         navigate("/login");
       }
     } catch (error) {

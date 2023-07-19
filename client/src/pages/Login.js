@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {authActions} from "../redux/store";
 import axios from "axios";
+import toast from "react-hot-toast";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Login = () => {
       if (data.sucess) {
         localStorage.setItem("userID", data?.user._id);
         dispatch(authActions.login());
-        alert("User Login Sucessfully");
+        toast.success("User Login Sucessfully");
         navigate("/");
       }
     } catch (error) {

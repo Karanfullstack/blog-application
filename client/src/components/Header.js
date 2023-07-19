@@ -12,22 +12,25 @@ import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {authActions} from "../redux/store";
+import toaster from "react-hot-toast";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [value, setValue] = useState();
-  const isLogin = useSelector((state) => state.isLogin);
+  let isLogin = useSelector((state) => state.isLogin);
+  isLogin = isLogin || localStorage.getItem("userID");
+
   const style = {
     background: "#000",
-
     borderBottom: "2px solid orangered",
   };
 
   const handelLogOut = () => {
     try {
+      localStorage.clear();
       dispatch(authActions.logout());
-      alert("Log out sucessfully");
+      toaster.success("Log out sucessfully");
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -47,7 +50,11 @@ const Header = () => {
               >
                 <Tab label="Blogs" LinkComponent={Link} to="/" />
                 <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
-                <Tab label="Create Blog" LinkComponent={Link} to="/create-blog" />
+                <Tab
+                  label="Create Blog"
+                  LinkComponent={Link}
+                  to="/create-blog"
+                />
               </Tabs>
             </Box>
           )}

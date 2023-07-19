@@ -85,7 +85,7 @@ const blogController = {
       // validation
       if (!title || !description || !image) {
         return res.status(400).send({
-          sucess: false,
+          success: false,
           message: "Please Provide All Fields",
         });
       }
@@ -95,14 +95,14 @@ const blogController = {
         {new: true}
       );
       return res.status(200).send({
-        sucess: true,
+        success: true,
         message: "Blog has updated sucessfully",
         updateBlog,
       });
     } catch (error) {
       console.log(error);
       return res.status(400).send({
-        sucess: false,
+        success: false,
         message: "Errro while updating a blog",
         error,
       });

@@ -5,16 +5,13 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-
+import toaster from "react-hot-toast";
 const BlogDetails = () => {
   function Copyright(props) {
     return (
@@ -51,8 +48,8 @@ const BlogDetails = () => {
         setBlog(data?.blog);
         setIntpus({
           title: data.blog.title,
-          description:data.blog.description,
-          image:data.blog.image
+          description: data.blog.description,
+          image: data.blog.image,
         });
       }
     } catch (error) {
@@ -74,14 +71,14 @@ const BlogDetails = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const {data} = await axios.post(`/api/v1/blog/update-blog/${id}`, {
+      const {data} = await axios.put(`/api/v1/blog/update-blog/${id}`, {
         title: inputs.title,
         description: inputs.description,
         image: inputs.image,
-        
       });
+      console.log(data);
       if (data?.success) {
-        alert("Blog has been UPDATED");
+        toaster.success("Blog has been UPDATED");
         navigate("/my-blogs");
       }
     } catch (error) {
@@ -112,7 +109,7 @@ const BlogDetails = () => {
           <Typography component="h1" variant="h4">
             Update Blog
           </Typography>
-          <Box component="form" noValidate sx={{mt: 4}}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 4}}>
             <TextField
               margin="normal"
               required

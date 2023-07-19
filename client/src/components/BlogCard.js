@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Box} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-
+import toster from "react-hot-toast";
 import axios from "axios";
 const ExpandMore = styled((props) => {
   const {expand, ...other} = props;
@@ -53,8 +53,10 @@ export default function BlogCard({
     try {
       const {data} = await axios.delete(`api/v1/blog/delete-blog/${id}`);
       if (data?.success) {
-        alert("Blog Deleted");
-        navigate("/my-blogs");
+        toster.success("Blog Deleted Sucessfully");
+        setTimeout(() => {
+          window.location.reload("/my-blogs");
+        }, 700);
       }
     } catch (error) {
       console.log(error);
@@ -76,10 +78,10 @@ export default function BlogCard({
       {isUser && (
         <Box display={"flex"}>
           <IconButton sx={{marginLeft: "auto"}} onClick={handelEdit}>
-            <EditIcon />
+            <EditIcon color="info" />
           </IconButton>
           <IconButton onClick={handelDelete}>
-            <DeleteIcon />
+            <DeleteIcon color="error" />
           </IconButton>
         </Box>
       )}

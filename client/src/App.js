@@ -6,10 +6,12 @@ import Register from "./pages/Register";
 import MyBlogs from "./pages/MyBlogs";
 import CreateBlog from "./pages/CreateBlog";
 import BlogDetails from "./pages/BlogDetails";
+import {Toaster} from "react-hot-toast";
 function App() {
   return (
     <div className="App">
       <Header />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Blog />} />
         <Route path="/my-blogs" element={<MyBlogs />} />

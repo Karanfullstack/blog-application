@@ -15,7 +15,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {useState, useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-
+import toster from "react-hot-toast";
 function Copyright(props) {
   return (
     <Typography
@@ -60,7 +60,7 @@ export default function CreateBlog() {
         user: id,
       });
       if (data?.success) {
-        alert("Blog has been created");
+        toster.success('Blog has been created')
         navigate("/my-blogs");
       }
     } catch (error) {
@@ -112,9 +112,11 @@ export default function CreateBlog() {
               autoFocus
               value={inputs.description}
               onChange={data}
-              inputProps={{style:{
-                height:'60px'
-              }}}
+              inputProps={{
+                style: {
+                  height: "60px",
+                },
+              }}
             />
             <TextField
               margin="normal"
